@@ -41,6 +41,7 @@ Core/Src/UserMain.c \
 Core/Src/drv_uart.c \
 Core/Src/midi.c \
 Core/Src/drv_cs43l22.c \
+Core/Src/synth.c \
 Core/Src/stm32f4xx_it.c \
 Core/Src/stm32f4xx_hal_msp.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c \

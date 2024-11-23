@@ -36,34 +36,33 @@ HAL_StatusTypeDef drv_cs43l22_init(void)
     }
 
     /* 初始化寄存器配置 */
+    write_register(0x00, 0x99);     // 解除写保护
+    write_register(0x47, 0x80);     // 设置额外功能
+    write_register(0x32, 0xBB);     // 设置主音量
+    write_register(0x32, 0x3B);     // 设置主音量
+    write_register(0x00, 0x00);     // 恢复写保护
+
     write_register(CS43L22_REG_POWER_CTL1, 0x9E);  // Power down
-    
+
     /* 时钟配置 */
     write_register(CS43L22_REG_CLOCKING_CTL, 0x81);  // Auto detect clock
     write_register(CS43L22_REG_INTERFACE_CTL1, 0x07);  // I2S 24bit
-    
-    /* 模拟设置 */
-    write_register(CS43L22_REG_ANALOG_ZC_SR, 0x00);  // Disable zero cross detection
-    
-    /* 音频路径配置 */
-    write_register(CS43L22_REG_PLAYBACK_CTL1, 0x70);  // Enable all playback channels
-    write_register(CS43L22_REG_PCMA_VOL, 0x0A);  // PCM volume
-    write_register(CS43L22_REG_PCMB_VOL, 0x0A);
-    
+
+    /* PCM配置 */
+    write_register(CS43L22_REG_PCMA_VOL, 0x0A);  // PCM A volume
+    write_register(CS43L22_REG_PCMB_VOL, 0x0A);  // PCM B volume
+
     /* 音量配置 */
-    write_register(CS43L22_REG_MASTER_A_VOL, 0x00);  // Master volume
+    write_register(CS43L22_REG_MASTER_A_VOL, 0x00);
     write_register(CS43L22_REG_MASTER_B_VOL, 0x00);
-    write_register(CS43L22_REG_HP_A_VOL, 0x00);  // Headphone volume
     write_register(CS43L22_REG_HP_B_VOL, 0x00);
-    write_register(CS43L22_REG_SPEAKER_A_VOL, 0x00);  // Speaker volume
+    write_register(CS43L22_REG_HP_B_VOL, 0x00);
+    write_register(CS43L22_REG_SPEAKER_A_VOL, 0x00);
     write_register(CS43L22_REG_SPEAKER_B_VOL, 0x00);
-    
-    /* 通道混音配置 */
-    write_register(CS43L22_REG_CH_MIXER_SWAP, 0x00);  // No channel swap
-    
+
     /* 上电 */
+    write_register(CS43L22_REG_POWER_CTL2, 0xAF);  // Power up
     write_register(CS43L22_REG_POWER_CTL1, 0x9E);  // Power up
-    HAL_Delay(1);  // Wait for power up
 
     is_initialized = 1;
     return status;
@@ -156,11 +155,7 @@ HAL_StatusTypeDef drv_cs43l22_set_mute(uint8_t mute)
   */
 static HAL_StatusTypeDef write_register(uint8_t reg, uint8_t value)
 {
-    uint8_t data[2];
-    data[0] = reg;
-    data[1] = value;
-    
-    return HAL_I2C_Master_Transmit(&hi2c1, CS43L22_I2C_ADDR, data, 2, HAL_MAX_DELAY);
+    return HAL_I2C_Mem_Write(&hi2c1, CS43L22_I2C_ADDR, reg, I2C_MEMADD_SIZE_8BIT, &value, 1, HAL_MAX_DELAY);
 }
 
 /**
@@ -171,10 +166,5 @@ static HAL_StatusTypeDef write_register(uint8_t reg, uint8_t value)
   */
 static HAL_StatusTypeDef read_register(uint8_t reg, uint8_t *value)
 {
-    HAL_StatusTypeDef status;
-    
-    status = HAL_I2C_Master_Transmit(&hi2c1, CS43L22_I2C_ADDR, &reg, 1, HAL_MAX_DELAY);
-    if (status != HAL_OK) return status;
-    
-    return HAL_I2C_Master_Receive(&hi2c1, CS43L22_I2C_ADDR, value, 1, HAL_MAX_DELAY);
-} 
+    return HAL_I2C_Mem_Read(&hi2c1, CS43L22_I2C_ADDR, reg, I2C_MEMADD_SIZE_8BIT, value, 1, HAL_MAX_DELAY);
+}
