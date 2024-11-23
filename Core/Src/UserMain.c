@@ -4,7 +4,7 @@
   */
 
 #include "UserMain.h"
-
+#include "midi.h"
 /**
   * @brief  用户代码初始化函数
   * @param  None
@@ -12,7 +12,7 @@
   */
 void User_Init(void)
 {
-    /* 在此添加初始化代码 */
+    drv_uart_init();
 }
 
 /**
@@ -30,6 +30,8 @@ void User_Main(void)
         led_blink_tick = HAL_GetTick();
 
         // printf("Hello, World!\n");
+        // drv_uart_debug_write("Hello, World!\n", 14);
     }
 
+    midi_main();
 } 
