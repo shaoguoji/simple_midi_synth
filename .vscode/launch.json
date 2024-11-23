@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "STM32F4 Debug",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "openocd",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/simple_midi_synth.elf",  // 修改为你的项目名
+            "device": "STM32F4xx",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f4x.cfg"
+            ],
+            "svdFile": "${workspaceRoot}/STM32F4xx.svd",  // 可选：用于外设寄存器查看
+            "runToEntryPoint": "main",
+            "preLaunchTask": "build",  // 可选：启动前执行构建任务
+            "postLaunchCommands": [],
+            "showDevDebugOutput": "parsed"
+        }
+    ]
+}
