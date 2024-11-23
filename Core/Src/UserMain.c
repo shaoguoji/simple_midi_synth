@@ -13,6 +13,8 @@
 void User_Init(void)
 {
     drv_uart_init();
+    drv_cs43l22_init();
+    drv_cs43l22_set_volume(70);  // 设置初始音量为70%
 }
 
 /**
