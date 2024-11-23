@@ -107,14 +107,14 @@ int main(void)
   MX_I2S3_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  UserMain_Init();
+  User_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    UserMain_Loop();
+    User_Main();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

@@ -10,7 +10,7 @@
   * @param  None
   * @retval None
   */
-void UserMain_Init(void)
+void User_Init(void)
 {
     /* 在此添加初始化代码 */
 }
@@ -20,7 +20,7 @@ void UserMain_Init(void)
   * @param  None
   * @retval None
   */
-void UserMain_Loop(void)
+void User_Main(void)
 {
     static uint32_t led_blink_tick = 0;
     

@@ -14,8 +14,8 @@ extern "C" {
 #include "main.h"
 
 /* Exported functions prototypes ---------------------------------------------*/
-void UserMain_Init(void);
-void UserMain_Loop(void);
+void User_Init(void);
+void User_Main(void);
 
 #ifdef __cplusplus
 }
