@@ -57,6 +57,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define USART_DEBUG_TX_Pin GPIO_PIN_2
+#define USART_DEBUG_TX_GPIO_Port GPIOA
+#define USART_DEBUG_RX_Pin GPIO_PIN_3
+#define USART_DEBUG_RX_GPIO_Port GPIOA
 #define I2S_CODEC_WS_Pin GPIO_PIN_4
 #define I2S_CODEC_WS_GPIO_Port GPIOA
 #define USART_MIDI_TX_Pin GPIO_PIN_8

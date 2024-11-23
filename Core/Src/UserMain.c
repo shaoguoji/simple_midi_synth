@@ -24,9 +24,12 @@ void UserMain_Loop(void)
 {
     static uint32_t led_blink_tick = 0;
     
-    if (HAL_GetTick() - led_blink_tick >= 500) {
+    if (HAL_GetTick() - led_blink_tick >= 500) 
+    {
         HAL_GPIO_TogglePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin);  // LED_BLUE
         led_blink_tick = HAL_GetTick();
+
+        // printf("Hello, World!\n");
     }
 
 } 
